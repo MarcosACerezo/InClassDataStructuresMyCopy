@@ -33,7 +33,6 @@ public class ArrayListExample {
         System.out.println(points.size());
 
         Collections.sort(points, Collections.reverseOrder());
-        System.out.println(Position3D.distanceTo(Position3D.ORIGIN, points.getFirst()));
     }
     
 }
