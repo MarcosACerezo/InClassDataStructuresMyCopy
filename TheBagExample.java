@@ -131,4 +131,11 @@ class Position3DArrayBag {
 
     }
 }
- 
+/**
+ * runtime analysis
+ * 
+ * add - Best case: O(1)    Worst case: O(n)
+ * size Worst case: O(1)
+ * union - O(n)
+ * new constructor - O(n)
+ */
