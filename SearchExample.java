@@ -1,19 +1,22 @@
 import java.util.Arrays;
-class ArrayBag<E extends Comparable> implements Cloneable {
+class ArrayBag<E extends Comparable<E>> implements Cloneable {
     private E[ ] data;
     private int manyItems;
-
+    
+    @SuppressWarnings("unchecked")
     public ArrayBag( ) {
         final int INITIAL_CAPACITY = 10;
         manyItems = 0;
         data = (E[]) new Comparable[INITIAL_CAPACITY];
     }
     public void add(E element){
-        if (manyItems == data.length)
+        if (manyItems == data.length){
             ensureCapacity((manyItems + 1)*2);
+        }
         data[manyItems] = element;
         manyItems++;
     }
+    @SuppressWarnings("unchecked")
     public void ensureCapacity(int minimumCapacity) {
         E biggerArray[ ];
         if (data.length < minimumCapacity) {
@@ -23,10 +26,13 @@ class ArrayBag<E extends Comparable> implements Cloneable {
         }
     }
     public int countOccurrences(E target){
-        int answer =0, index;
-        for (index = 0; index < manyItems; index++)
-        if (target.equals(data[index]))
-            answer++;
+        int answer = 0;
+        for (int index = 0; index < manyItems; index++){
+            if (target.equals(data[index])){
+                answer++;
+            }
+        }
+        
         return answer;
     }
     public int getCapacity( ) {
@@ -45,10 +51,11 @@ class ArrayBag<E extends Comparable> implements Cloneable {
     }
     // BinarySearch method to start with
     // Method to perform binary search on a sorted array
+    @SuppressWarnings("unchecked")
     public int binarySearch(E target) {
         Arrays.sort(data, 0, manyItems);
         int left = 0;
-        int right = manyItems;
+        int right = manyItems - 1;
         while (left <= right) {
             int mid = left + (right - left) / 2;
             // Check if target is present at mid
