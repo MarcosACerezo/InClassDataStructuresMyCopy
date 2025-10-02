@@ -1,16 +1,18 @@
 public class TheBagExampleUpdated {
     public static void main(String[] args) {
         ArrayBagUpdated<Position3D> myBag = new ArrayBagUpdated<>();
-        System.out.println("Current Capacity: " + myBag.getCapacity());
+        // System.out.println("Current Capacity: " + myBag.getCapacity());
         myBag.add(new Position3D(10,10,10));
         myBag.add(new Position3D(20,20,20));
         myBag.add(new Position3D(10,10,10));
-        System.out.println("Current Capacity: " + myBag.getCapacity());
+        // System.out.println("Current Capacity: " + myBag.getCapacity());
         myBag.trimToSize();
         System.out.println("Current Capacity: " + myBag.getCapacity());
         System.out.println("Current size: " + myBag.size());
         ArrayBagUpdated<Position3D> copiedBag = new ArrayBagUpdated<>(myBag);
-
+        for(int i=0; i<myBag.size(); i++){
+            System.out.println(copiedBag.get(i)); 
+        }
 
         copiedBag.add(new Position3D(40,40,40));
         System.out.println("Copied bag Size: " + copiedBag.size());
@@ -35,7 +37,7 @@ class ArrayBagUpdated<E>{
         this.data = new Object[other.data.length];
         try{
             for (int i = 0; i < other.manyItems; i++){
-                data[i].getClass().getMethod("clone").invoke(data[i]);
+                data[i] = other.data[i].getClass().getMethod("clone").invoke(other.data[i]);
             }
         }catch(Exception e){
 
@@ -49,6 +51,14 @@ class ArrayBagUpdated<E>{
         }
         data[manyItems] = element;
         manyItems++;
+    }
+
+    @SuppressWarnings("unchecked")
+    public E get(int index){
+        if(index >= manyItems){
+            throw new ArrayIndexOutOfBoundsException("Out of bounds");
+        }
+        return (E) data[index];
     }
 
 
