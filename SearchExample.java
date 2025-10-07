@@ -51,7 +51,6 @@ class ArrayBag<E extends Comparable<E>> implements Cloneable {
     }
     // BinarySearch method to start with
     // Method to perform binary search on a sorted array
-    @SuppressWarnings("unchecked")
     public int binarySearch(E target) {
         Arrays.sort(data, 0, manyItems);
         int left = 0;

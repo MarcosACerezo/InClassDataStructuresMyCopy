@@ -84,6 +84,7 @@ class ArrayBagUpdated<E>{
             data = trimmedArray;
         }
     }
+    @SuppressWarnings("unchecked")
     public static <E> ArrayBagUpdated<E> union(ArrayBagUpdated<E> bag1, ArrayBagUpdated<E> bag2) {
         ArrayBagUpdated<E> result = new ArrayBagUpdated<>();
         result.ensureCapacity(bag1.manyItems + bag2.manyItems);

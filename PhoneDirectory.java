@@ -9,17 +9,7 @@ public class PhoneDirectory{
         directory.put("Layla", 3363);
         directory.put("Astrid", 8927);
         // directory.put("Haruto", 8888);
-        
-        String hold = "(\"Hope\", 2110), (\"Sophia\", 4625), (\"Claire\", 2433),\r\n" + //
-            "(\"Friedrich\", 3545), (\"Leonardo\", 1100), ( \"Layla\", 3363),\r\n" + //
-            "(\"Astrid\", 8927), ( \"Haruto\", 8888).";
-        String[][] inputValue = Table.split(hold);
-        // for(int i=0; i<inputValue.length; i++){
-        //     directory.put(inputValue[i][0],inputValue[i][1]);
-        // }
-        for(int i=0; i<inputValue.length; i++){
-            System.out.println(inputValue[i][0]+": "+inputValue[i][0].hashCode());
-        }
+
 
         System.out.printf("Size before removal: %s", directory.size());
         System.out.println(directory);
@@ -123,15 +113,7 @@ class Table {
     }
     
 
-    public static String[][] split(String input){
-        String modInput = input.replace("(","").replace(")","");
-        String[] hold = input.split(",");
-        String[][] returnval = new String[hold.length/2][2];
-        for(int i=0; i<hold.length; i++){
-            returnval[i/2][i%2] = hold[i];
-        }
-    return returnval;
-    }
+
     @Override
     public String toString(){
         String response = "";
