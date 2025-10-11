@@ -1,38 +1,14 @@
-public class TheBagExampleUpdated {
-    public static void main(String[] args) {
-        ArrayBagUpdated<Position3D> myBag = new ArrayBagUpdated<>();
-        // System.out.println("Current Capacity: " + myBag.getCapacity());
-        myBag.add(new Position3D(10,10,10));
-        myBag.add(new Position3D(20,20,20));
-        myBag.add(new Position3D(10,10,10));
-        // System.out.println("Current Capacity: " + myBag.getCapacity());
-        myBag.trimToSize();
-        System.out.println("Current Capacity: " + myBag.getCapacity());
-        System.out.println("Current size: " + myBag.size());
-        ArrayBagUpdated<Position3D> copiedBag = new ArrayBagUpdated<>(myBag);
-        for(int i=0; i<myBag.size(); i++){
-            System.out.println(copiedBag.get(i)); 
-        }
-
-        copiedBag.add(new Position3D(40,40,40));
-        System.out.println("Copied bag Size: " + copiedBag.size());
-        System.out.println("Copied Bag Capacity: " + copiedBag.getCapacity());
-        ArrayBagUpdated<Position3D> unionBag = ArrayBagUpdated.union(myBag, copiedBag);
-        System.out.println("Union Bag Size: " + unionBag.size());
-        System.out.println("Union Bag Capacity: " + unionBag.getCapacity());
-    }
-}
-class ArrayBagUpdated<E>{
+class ArrayBag<E>{
     private Object[] data;
     private int manyItems;
 
-    public ArrayBagUpdated( ){
+    public ArrayBag( ){
         final int INITIAL_CAPACITY = 2;
         manyItems = 0;
         data = new Object[INITIAL_CAPACITY];
     }
 
-    public ArrayBagUpdated(ArrayBagUpdated<E> other) {
+    public ArrayBag(ArrayBag<E> other) {
         this.manyItems = other.manyItems;
         this.data = new Object[other.data.length];
         try{
@@ -85,8 +61,8 @@ class ArrayBagUpdated<E>{
         }
     }
     @SuppressWarnings("unchecked")
-    public static <E> ArrayBagUpdated<E> union(ArrayBagUpdated<E> bag1, ArrayBagUpdated<E> bag2) {
-        ArrayBagUpdated<E> result = new ArrayBagUpdated<>();
+    public static <E> ArrayBag<E> union(ArrayBag<E> bag1, ArrayBag<E> bag2) {
+        ArrayBag<E> result = new ArrayBag<>();
         result.ensureCapacity(bag1.manyItems + bag2.manyItems);
         try{
             for (int i = 0; i < bag1.manyItems; i++){
