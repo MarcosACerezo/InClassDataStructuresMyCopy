@@ -88,7 +88,7 @@ class Table {
         String response = "";
         System.out.println();
         for(int i=0; i<manyItems;i++){
-            response += String.format("Person: %s \t Code: %s\n", keys[i], data[i]);
+            response += String.format("Person: %-10s  Code: %s\n", keys[i], data[i]);
         }
         return response;
     }

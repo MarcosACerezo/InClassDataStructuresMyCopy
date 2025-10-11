@@ -33,7 +33,6 @@ public class ArrayBag <E extends Comparable<E>> implements Cloneable{
         manyItems++;
     }
 
-    @SuppressWarnings("unchecked")
     public E get(int index){
         if(index >= manyItems){
             throw new ArrayIndexOutOfBoundsException("Out of bounds");
