@@ -1,20 +1,18 @@
-import javax.swing.text.Position;
-
 class Node<E> {
-    private Object data;
+    private E data;
     private Node<E> link;
 
-    public Node(Object initialData, Node<E> initialLink) {
+    public Node(E initialData, Node<E> initialLink) {
         data = initialData;
         link = initialLink;
     }
 
-    public void setData(Object newData) {
+    public void setData(E newData) {
         data = newData;
     }
 
     public E getData() {
-        return (E) data;
+        return data;
     }
 
     public Node<E> getLink() {
@@ -25,17 +23,17 @@ class Node<E> {
         link = newLink;
     }
 
-    public static Node listSearch(Node head, Object target) {
+    public static <E> Node<E> listSearch(Node<E> head, E target) {
 
-        Node cursor;
+        Node<E> cursor;
         for (cursor = head; cursor != null; cursor = cursor.link)
             if (cursor.data.equals(target))
                 return cursor;
         return null;
     }
 
-    public static Node listPosition(Node head, int position) {
-        Node cursor;
+    public static <E> Node<E> listPosition(Node<E> head, int position) {
+        Node<E> cursor;
         int i;
 
         if (position <= 0)
@@ -58,10 +56,11 @@ class LinkedBag<E> implements Cloneable {
     }
 
     public void add(E element) {
-        head = new Node(element, head);
+        head = new Node<E>(element, head);
         manyNodes++;
     }
 
+    
     public int countOccurrences(E target) {
         int answer = 0;
         Node<E> cursor = Node.listSearch(head, target);
@@ -76,12 +75,13 @@ class LinkedBag<E> implements Cloneable {
         return answer;
     }
 
-    public Node getHead(){
+    public Node<E> getHead(){
         return head;
     }
 
-    public boolean remove( E target) {
-        Node targetNode = Node.listSearch(head, target);
+    
+    public boolean remove(E target) {
+        Node<E> targetNode = Node.listSearch(head, target);
 
         if (targetNode == null)
             return false;
@@ -98,26 +98,27 @@ class LinkedBag<E> implements Cloneable {
     }
     
     //the run time would be O(n) worst case because of the listPosition method
-    @SuppressWarnings("unchecked")
+    
     public E grab(){
-        Node rand = Node.listPosition(head, (int)(manyNodes * Math.random() + 1));
-        return (E)rand.getData();
+        if(manyNodes == 0){
+            throw new IllegalStateException("There are no elements in the bag");
+        }
+        Node<E> rand = Node.listPosition(head, (int)(manyNodes * Math.random() + 1));//select node
+        return rand.getData();//return data from node
     }
 
     //O(n) runtime
     @SuppressWarnings("unchecked")
     public static <E extends Cloneable> LinkedBag<E> union(LinkedBag<E> bag1, LinkedBag<E> bag2) {
         LinkedBag<E> result = new LinkedBag<E>();
-        Node<E> cursor = bag1.head;
+        Node<E> cursor;
         try{
-            while(cursor != null){
+            for(cursor=bag1.head; cursor != null; cursor = cursor.getLink()){
             result.add((E)cursor.getData().getClass().getMethod("clone").invoke(cursor.getData()));
-            cursor = cursor.getLink();
             }
             cursor = bag2.head;
-            while(cursor != null){
+            for(cursor=bag2.head; cursor != null; cursor = cursor.getLink()){
                 result.add((E)cursor.getData().getClass().getMethod("clone").invoke(cursor.getData()));
-                cursor = cursor.getLink();
             }
             result.manyNodes = bag1.manyNodes + bag2.manyNodes;
         }catch(Exception e){
@@ -132,9 +133,9 @@ class LinkedBag<E> implements Cloneable {
 
 
 
-public class GenericBagExample {
+public class GenericLinkedBag {
     public static void main(String[] args) {
-        LinkedBag<Position3D> positionBag = new LinkedBag();
+        LinkedBag<Position3D> positionBag = new LinkedBag<>();
         System.out.println("Current size: " + positionBag.size());
 
         //filling bag
@@ -162,7 +163,7 @@ public class GenericBagExample {
             System.out.println(positionBag.grab());
         }
 
-        LinkedBag<Position3D> secondBag = new LinkedBag();
+        LinkedBag<Position3D> secondBag = new LinkedBag<>();
         secondBag.add(new Position3D(8, 00, 8135));
         secondBag.add(new Position3D(1, 2, 3));
         secondBag.add(new Position3D(1, 2, 3));
