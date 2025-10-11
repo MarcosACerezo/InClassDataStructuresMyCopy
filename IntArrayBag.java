@@ -1,4 +1,4 @@
-class IntArrayBag {
+public class IntArrayBag {
     private int[ ] data;
     private int manyItems;
     public IntArrayBag( ) {

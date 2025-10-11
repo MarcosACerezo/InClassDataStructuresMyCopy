@@ -14,7 +14,8 @@ public class Mod01ClassesAndObjects {
     Position3D point4 = point2.clone();
     System.out.println("Point 4 (clone of Point 2): " + point4);
 
-    System.out.println("Point2 equals Point4?: " + point2.equals(point4));
+    System.out.println("Point 2 equals Point4: " + point2.equals(point4));
+    System.out.printf("Point 2 shallow clone of Point 4? %b\n", point2 == point4);
 
     point2 = null;
     // System.out.println("Point2 equals Point4 after point2=null? " + point2.equals(point4));

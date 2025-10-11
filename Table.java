@@ -1,4 +1,3 @@
-
 class Table {
     private int manyItems;
     private Object[ ] keys;
@@ -82,5 +81,15 @@ class Table {
     
     public int size(){
         return manyItems;
+    }
+
+    @Override
+    public String toString(){
+        String response = "";
+        System.out.println();
+        for(int i=0; i<manyItems;i++){
+            response += String.format("Person: %s \t Code: %s\n", keys[i], data[i]);
+        }
+        return response;
     }
 }
