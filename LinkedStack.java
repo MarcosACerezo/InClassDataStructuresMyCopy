@@ -1,4 +1,6 @@
 import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 class LinkedStack<E> implements Cloneable {
     private StackNode<E> top;
@@ -30,11 +32,11 @@ class LinkedStack<E> implements Cloneable {
         top = new StackNode<E>(item, top);
     }
 
+    //runtime O(n) because we have to traverse the whole list to display every element  
     public void display() {
-        StackNode<E> current = top;
-        while (current != null) {
-            System.out.print(current.getData() + " ");
-            current = current.getLink();
+        StackIterator<E> iter = new StackIterator<E>(top);
+        while (iter.hasNext()) {
+            System.out.print(iter.next() + " ");
         }
         System.out.println();
     }
@@ -65,5 +67,35 @@ class LinkedStack<E> implements Cloneable {
             cursor2 = cursor2.getLink();
         }
         return (cursor1 == null && cursor2 == null);
+    }
+
+    class StackIterator<E> implements Iterator<E> {
+        private StackNode<E> current;
+
+        public StackIterator(StackNode<E> head) {
+            current = head;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (current != null);
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext())
+                throw new NoSuchElementException("The stack is empty");
+
+            E answer = current.getData();
+            current = current.getLink();
+            return answer;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException(
+                "You are not allowed to remove an element from the stack!"
+            );
+        }
     }
 }
